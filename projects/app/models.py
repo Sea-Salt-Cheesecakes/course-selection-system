@@ -1,5 +1,8 @@
-from django.db import models
+#使用Django框架的Python代码，定义了一些数据库模型类。
+#这些类分别表示学院、专业、课程、年级、用户、学生、教师、工作计划和选课记录等实体。
+#每个类都继承自models.Model，并定义了一些字段（如id、name等），以及一些元数据信息（如db_table等）
 
+from django.db import models
 
 # 定义一个名为CharField的类，继承自models.Field
 class CharField(models.Field):
