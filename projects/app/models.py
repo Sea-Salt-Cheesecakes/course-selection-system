@@ -1,19 +1,31 @@
 from django.db import models
 
 
+# 定义一个名为CharField的类，继承自models.Field
 class CharField(models.Field):
+    # 初始化方法，接收最大长度max_length以及其他参数
     def __init__(self, max_length, *args, **kwargs):
+        # 将传入的最大长度赋值给实例变量max_length
         self.max_length = max_length
+        # 调用父类的初始化方法，传入最大长度以及其他参数
         super(CharField, self).__init__(max_length=max_length, *args, **kwargs)
 
+    # 定义一个名为db_type的方法，接收一个名为connection的参数
     def db_type(self, connection):
+        # 返回一个字符串，表示数据库中的字段类型为char，并设置最大长度
         return 'char(%s)' % self.max_length
 
+# 定义一个名为Colleges的类，继承自models.Model
 class Colleges(models.Model):
+    # 定义一个名为id的字段，类型为CharField，作为主键
     id = models.CharField('学院编号', max_length=13, primary_key=True)
+    # 定义一个名为name的字段，类型为CharField，最大长度为20，不能为空
     name = models.CharField('学院名称', max_length=20, null=False)
+    # 定义一个名为createTime的字段，类型为CharField，最大长度为19，不能为空，数据库中的列名为create_time
     createTime = models.CharField('记录时间', db_column='create_time', max_length=19, null=False)
+    # 定义一个名为Meta的内部类，用于设置元数据信息
     class Meta:
+        # 设置数据库表名为colleges
         db_table = 'colleges'
 
 class Majors(models.Model):
