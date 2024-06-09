@@ -1,3 +1,5 @@
+#基于Django框架的Web应用程序，主要实现了用户登录、登出、信息修改、密码修改、学院和专业的增删改查等功能
+
 import json
 import time
 
