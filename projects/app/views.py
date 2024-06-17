@@ -339,7 +339,8 @@ def project_data_page(request):
         temp = {
             'id': item.id,
             'name': item.name,
-            'createTime': item.createTime
+            #'createTime': item.createTime,
+            'credit': "{:.1f}".format(item.credit)
         }
         resl.append(temp)
 
@@ -359,7 +360,8 @@ def project_data_info(request):
         resl = {
             'id': item.id,
             'name': item.name,
-            'createTime': item.createTime
+            'createTime': item.createTime,
+            'credit' : "{:.1f}".format(item.credit)
         }
 
     return successData(resl)
@@ -391,13 +393,14 @@ def project_data_add(request):
 
     models.Projects.objects.create(id = int(time.time()),
                                    name = request.POST.get('name'),
+                                   credit = request.POST.get('credit'),
                                    createTime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
                                   )
     return success()
 
 def project_data_upd(request):
 
-    models.Projects.objects.filter(id = request.POST.get('id')).update(name=request.POST.get('name'))
+    models.Projects.objects.filter(id = request.POST.get('id')).update(name=request.POST.get('name'), credit = request.POST.get('credit'))
     return success()
 
 def project_data_del(request):

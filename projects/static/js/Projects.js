@@ -11,7 +11,6 @@ function handle(){
             },
             success: function(res){
                 if(res.code == 0){
-
                     $.initForm("updForm", res.data);
                     $.model(".updWin");
                 }else{
@@ -69,10 +68,15 @@ $(function (){
 				align: "center",
 			},
 			{
+				field: "credit",
+				title: "学分",
+				align: "center",
+			},
+			/*{
 				field: "createTime",
 				title: "记录时间",
 				align: "center",
-			},
+			},*/
 			 {
                 title: "操作",
                  template: (d)=>{
@@ -96,7 +100,7 @@ $(function (){
         tableView.where["name"] = $("[name=para1]").val();
 
         $.table(tableView);
-        
+
         handle();
     });
 
@@ -104,7 +108,7 @@ $(function (){
 
         $.model(".addWin");
     });
-    
+
 
 	handle();
 
