@@ -13,3 +13,11 @@
 1. 运行服务器: `python manage.py runserver`
 2. 进入系统：[127.0.0.1:8000/projects/login](127.0.0.1:8000/projects/login)
 3. 账号密码在数据库user表中，type字段0为管理员账号，用户名密码默认为admin，type字段1为教师账号，2为学生账号
+
+## 备注
+
+- 涉及改动数据库结构即`models.py`中字段时请修改后运行
+  ```shell
+  python manage.py makemigrations
+  python manage.py migrate
+  ```
