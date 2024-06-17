@@ -5,7 +5,7 @@
     ```bash
     mysql> source db.sql
     ```
-3. 在pycharm终端依次输入`python manage.py makemigrations和python manage.py migrate`进行表结构迁移
+3. 在pycharm终端依次输入`python manage.py makemigrations和python manage.py migrate`进行表结构迁移，若出现`Table 'xxx' already exists`的错误，则执行`python manage.py migrate --fake-initial`
 4. 全部导入成功后运行
 
 ## 运行
