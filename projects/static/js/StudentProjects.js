@@ -16,10 +16,16 @@ $(function (){
     				align: "center",
     			},
                 {
+                    field: "credit",
+                    title: "课程学分",
+                    align: "center",
+                },
+                {
     				field: "teacherName",
     				title: "授课教师",
     				align: "center",
     			},
+                /*
                 {
     				field: "teacherGender",
     				title: "教师性别",
@@ -29,7 +35,7 @@ $(function (){
     				field: "teacherRecord",
     				title: "教师学历",
     				align: "center",
-    			},
+    			},*/
             ]
         }
 

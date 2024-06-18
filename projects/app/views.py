@@ -862,8 +862,9 @@ def selec_data_student_selected(request):
             'id': item.id,
             'projectName': item.workPaln.project.name,
             'teacherName': item.workPaln.teacher.user.name,
-            'teacherGender': item.workPaln.teacher.user.gender,
-            'teacherRecord': item.workPaln.teacher.record,
+            #'teacherGender': item.workPaln.teacher.user.gender,
+            #'teacherRecord': item.workPaln.teacher.record,
+            'credit': item.workPaln.project.credit
         }
         resl.append(temp)
 
