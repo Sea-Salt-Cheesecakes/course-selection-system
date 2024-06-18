@@ -94,6 +94,11 @@ $(function (){
 				title: "联系地址",
 				align: "center",
 			},
+            {
+                field: "projectCount",
+                title: "教授课程数目",
+                align: "center",
+            },
 			{
                 title: "操作",
                 template: (d)=>{
@@ -119,7 +124,7 @@ $(function (){
         tableView.where["phone"] = $("[name=para3]").val();
 
         $.table(tableView);
-        
+
         handle();
     });
 

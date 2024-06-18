@@ -8,7 +8,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
-from django.db.models import Sum
+from django.db.models import Count
 
 from app import models
 
@@ -615,6 +615,7 @@ def teachers_data_page(request):
 
     resl = []
     for item in list(paginator.page(pageIndex)):
+
         temp = {
             'id': item.user.id,
             'name': item.user.name,
@@ -623,6 +624,7 @@ def teachers_data_page(request):
             'record': item.record,
             'phone': item.phone,
             'address': item.address,
+            'projectCount': models.WorkPalns.objects.filter(teacher__user__id = item.user.id).values('project_id').annotate(projectCount = Count('teacher_id')).count()
         }
         resl.append(temp)
 
