@@ -64,6 +64,7 @@ urlpatterns = [
     path('selectLogs/student/all', app.views.selec_data_student_select),
     path('students/projects', app.views.selec_view_student_selected),
     path('selectLogs/student/selected', app.views.selec_data_student_selected),
+    path('selectLogs/student/selected_statistic', app.views.selec_data_student_selected_statistic),
     path('selectLogs/page/teacher', app.views.select_data_teastudent_page),
 
 ]

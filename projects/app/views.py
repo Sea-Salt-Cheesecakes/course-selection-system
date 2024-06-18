@@ -8,6 +8,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.db.models import Sum
 
 from app import models
 
@@ -339,7 +340,8 @@ def project_data_page(request):
         temp = {
             'id': item.id,
             'name': item.name,
-            'createTime': item.createTime
+            #'createTime': item.createTime,
+            'credit': "{:.1f}".format(item.credit)
         }
         resl.append(temp)
 
@@ -359,7 +361,8 @@ def project_data_info(request):
         resl = {
             'id': item.id,
             'name': item.name,
-            'createTime': item.createTime
+            'createTime': item.createTime,
+            'credit' : "{:.1f}".format(item.credit)
         }
 
     return successData(resl)
@@ -391,13 +394,14 @@ def project_data_add(request):
 
     models.Projects.objects.create(id = int(time.time()),
                                    name = request.POST.get('name'),
+                                   credit = request.POST.get('credit'),
                                    createTime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
                                   )
     return success()
 
 def project_data_upd(request):
 
-    models.Projects.objects.filter(id = request.POST.get('id')).update(name=request.POST.get('name'))
+    models.Projects.objects.filter(id = request.POST.get('id')).update(name=request.POST.get('name'), credit = request.POST.get('credit'))
     return success()
 
 def project_data_del(request):
@@ -859,10 +863,27 @@ def selec_data_student_selected(request):
             'id': item.id,
             'projectName': item.workPaln.project.name,
             'teacherName': item.workPaln.teacher.user.name,
-            'teacherGender': item.workPaln.teacher.user.gender,
-            'teacherRecord': item.workPaln.teacher.record,
+            #'teacherGender': item.workPaln.teacher.user.gender,
+            #'teacherRecord': item.workPaln.teacher.record,
+            'credit': item.workPaln.project.credit
         }
         resl.append(temp)
+
+    return successData(resl)
+
+def selec_data_student_selected_statistic(request):
+
+    user = request.session.get('user')
+    selectLogs = models.SelectLogs.objects.filter(student__user_id = user['id'])
+    models.SelectLogs.objects.filter().select_related()
+    selectCount = len(selectLogs)
+    selectCredit = 0
+    for item in selectLogs:
+        selectCredit += item.workPaln.project.credit
+    resl = [{
+        'selectCount' : selectCount,
+        'selectCredit' : selectCredit
+    }] #resl need to be an array
 
     return successData(resl)
 
