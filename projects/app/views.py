@@ -8,6 +8,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.db.models import Sum
 
 from app import models
 
@@ -867,6 +868,22 @@ def selec_data_student_selected(request):
             'credit': item.workPaln.project.credit
         }
         resl.append(temp)
+
+    return successData(resl)
+
+def selec_data_student_selected_statistic(request):
+
+    user = request.session.get('user')
+    selectLogs = models.SelectLogs.objects.filter(student__user_id = user['id'])
+    models.SelectLogs.objects.filter().select_related()
+    selectCount = len(selectLogs)
+    selectCredit = 0
+    for item in selectLogs:
+        selectCredit += item.workPaln.project.credit
+    resl = [{
+        'selectCount' : selectCount,
+        'selectCredit' : selectCredit
+    }] #resl need to be an array
 
     return successData(resl)
 

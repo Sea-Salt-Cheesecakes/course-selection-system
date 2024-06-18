@@ -1,4 +1,24 @@
 $(function (){
+    let statisticView = {
+        el: "#statisticShow",
+        url: "/projects/selectLogs/student/selected_statistic",
+        method: "GET",
+        page: false,
+        cols: [
+            {
+                field: "selectCount",
+                title: "已选课程数量",
+                align: "center"
+            },
+            {
+                field: "selectCredit",
+                title: "已选课程学分",
+                align: "center"
+            }
+        ]
+    }
+
+    $.table(statisticView);
 
     let tableView =  {
             el: "#tableShow",
