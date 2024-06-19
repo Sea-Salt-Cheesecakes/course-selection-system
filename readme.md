@@ -1,12 +1,13 @@
 ## 安装依赖
 
-1. 解压项目，用pycharm打开projects目录。 在pycharm配置python解释器，3.8及以上都可以。可以通过conda或者其他的虚拟环境来安装。
+1. 解压项目，用pycharm打开projects目录。 在pycharm配置python解释器，3.8及以上都可以。可以通过conda或者其他的虚拟环境来安装。下载django pymysql cryptography
 2. 初始化数据库：在项目目录下执行`mysql -u[username] -p[password]`登录mysql，随后执行
     ```bash
     mysql> source db.sql
     ```
 3. 在pycharm终端依次输入`python manage.py makemigrations和python manage.py migrate`进行表结构迁移，若出现`Table 'xxx' already exists`的错误，则执行`python manage.py migrate --fake-initial`
-4. 全部导入成功后运行
+4. 根据数据库情况修改/projects/settings.py文件
+5. 全部导入成功后运行
 
 ## 运行
 
