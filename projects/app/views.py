@@ -678,6 +678,19 @@ def teachers_data_del(request):
     models.Users.objects.filter(id=request.POST.get('id')).delete()
     return success()
 
+def teachers_data_projects(request):
+
+    id = request.GET.get('id')
+    workPlans = models.WorkPalns.objects.filter(teacher__user__id = id)
+    resl = []
+    for item in workPlans:
+        temp = {
+            'projectName': item.project.name,
+            'gradeName': item.grade.name,
+        }
+        resl.append(temp)
+    return successData(resl)
+
 
 def work_view(request):
 
