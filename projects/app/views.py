@@ -831,8 +831,6 @@ def select_data_teastudent_page(request):
     resl = []
     for item in list(paginator.page(pageIndex)):
 
-        print(item)
-
         temp = {
             'id': item.id,
             'projectName': item.workPaln.project.name,
@@ -855,7 +853,6 @@ def select_data_teastudent_page_statistic(request):
     resl = []
     
     for item in workPlans:
-        print(item.grade.name)
         selectLogs = models.SelectLogs.objects.filter(workPaln = item.id)
         studentCount = len(selectLogs)
         selectMajors = []
