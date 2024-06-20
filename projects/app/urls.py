@@ -53,7 +53,7 @@ urlpatterns = [
     path('teachers/add', app.views.teachers_data_add),
     path('teachers/upd', app.views.teachers_data_upd),
     path('teachers/del', app.views.teachers_data_del),
-    path('teachers/projects', app.views.teachers_data_projects),
+    path('teachers/work', app.views.teachers_data_work),
 
     path('workPalns/', app.views.work_view),
     path('workPalns/list', app.views.work_data_list),

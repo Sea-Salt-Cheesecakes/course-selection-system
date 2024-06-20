@@ -678,18 +678,24 @@ def teachers_data_del(request):
     models.Users.objects.filter(id=request.POST.get('id')).delete()
     return success()
 
-def teachers_data_projects(request):
+def teachers_data_work(request):
 
+    pageIndex = request.GET.get('pageIndex', 1)
+    pageSize = request.GET.get('pageSize', 10)
     id = request.GET.get('id')
     workPlans = models.WorkPalns.objects.filter(teacher__user__id = id)
+    paginator = Paginator(workPlans, pageSize)
     resl = []
-    for item in workPlans:
+    for item in list(paginator.page(pageIndex)):
         temp = {
             'projectName': item.project.name,
             'gradeName': item.grade.name,
         }
         resl.append(temp)
-    return successData(resl)
+    temp = parasePage(pageIndex, pageSize,
+                      paginator.page(pageIndex).paginator.num_pages, paginator.count, resl)
+
+    return successData(temp)
 
 
 def work_view(request):
