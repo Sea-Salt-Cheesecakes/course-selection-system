@@ -8,7 +8,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
-from django.db.models import Sum
+from django.db.models import Count
 
 from app import models
 
@@ -615,6 +615,7 @@ def teachers_data_page(request):
 
     resl = []
     for item in list(paginator.page(pageIndex)):
+
         temp = {
             'id': item.user.id,
             'name': item.user.name,
@@ -623,6 +624,7 @@ def teachers_data_page(request):
             'record': item.record,
             'phone': item.phone,
             'address': item.address,
+            'projectCount': models.WorkPalns.objects.filter(teacher__user__id = item.user.id).count()
         }
         resl.append(temp)
 
@@ -675,6 +677,25 @@ def teachers_data_del(request):
     models.Teachers.objects.filter(user__id = request.POST.get('id')).delete()
     models.Users.objects.filter(id=request.POST.get('id')).delete()
     return success()
+
+def teachers_data_work(request):
+
+    pageIndex = request.GET.get('pageIndex', 1)
+    pageSize = request.GET.get('pageSize', 10)
+    id = request.GET.get('id')
+    workPlans = models.WorkPalns.objects.filter(teacher__user__id = id)
+    paginator = Paginator(workPlans, pageSize)
+    resl = []
+    for item in list(paginator.page(pageIndex)):
+        temp = {
+            'projectName': item.project.name,
+            'gradeName': item.grade.name,
+        }
+        resl.append(temp)
+    temp = parasePage(pageIndex, pageSize,
+                      paginator.page(pageIndex).paginator.num_pages, paginator.count, resl)
+
+    return successData(temp)
 
 
 def work_view(request):

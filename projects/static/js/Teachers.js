@@ -1,6 +1,35 @@
 function handle(){
 
-	$("button[event=upd]").on("click", (e)=>{
+	$("button[event=view]").on("click", (e)=>{
+
+        let workView = {
+            el: "#workShow",
+            url: "/projects/teachers/work",
+            method: "GET",
+            where: {
+                pageIndex: 1,
+                pageSize: 10
+            },
+            page: true,
+            cols: [
+                {
+                    field: "projectName",
+                    title: "课程名称",
+                    align: "center",
+                },
+                {
+                    field: "gradeName",
+                    title: "班级名称",
+                    align: "center",
+                },
+            ],
+        }
+        workView.where["id"] = $(e.target).attr("data");
+        $.table(workView);
+        $.model(".viewWin");
+    });
+
+    $("button[event=upd]").on("click", (e)=>{
 
         $.ajax({
             url: "/projects/teachers/info",
@@ -94,11 +123,19 @@ $(function (){
 				title: "联系地址",
 				align: "center",
 			},
+            {
+                field: "projectCount",
+                title: "教授课程数目",
+                align: "center",
+            },
 			{
                 title: "操作",
                 template: (d)=>{
 
                     return `
+                            <button type="button" event="view" data="${d.id}" class="fater-btn fater-btn-primary fater-btn-sm">
+                                <span data="${d.id}" class="fa fa-tasks"></span>
+                            </button>        
                             <button type="button" event="upd" data="${d.id}" class="fater-btn fater-btn-primary fater-btn-sm">
                                 <span data="${d.id}" class="fa fa-edit"></span>
                             </button>
@@ -119,7 +156,7 @@ $(function (){
         tableView.where["phone"] = $("[name=para3]").val();
 
         $.table(tableView);
-        
+
         handle();
     });
 
