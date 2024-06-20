@@ -1,5 +1,35 @@
 $(function (){
+    let statisticView = {
+        el: "#statisticShow",
+        url: "/projects/selectLogs/page/teacher_statistic",
+        method: "GET",
+        page: false,
+        cols: [
+            {
+                field: "projectName",
+                title: "课程名称",
+                align: "center"
+            },
+            {
+                field: "gradeName",
+                title: "班级名称",
+                align: "center"
+            },
+            {
+                field: "studentCount",
+                title: "学生数量",
+                align: "center"
+            },
+            {
+                field: "selectMajors",
+                title: "专业分布",
+                align: "center"
+            },
+        ]
+    }
 
+    $.table(statisticView);
+    
     let tableView =  {
         el: "#tableShow",
         url: "/projects/selectLogs/page/teacher",
