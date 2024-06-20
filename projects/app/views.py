@@ -831,8 +831,6 @@ def select_data_teastudent_page(request):
     resl = []
     for item in list(paginator.page(pageIndex)):
 
-        print(item)
-
         temp = {
             'id': item.id,
             'projectName': item.workPaln.project.name,
@@ -848,6 +846,27 @@ def select_data_teastudent_page(request):
                       paginator.page(pageIndex).paginator.num_pages, paginator.count, resl)
 
     return successData(temp)
+
+def select_data_teastudent_page_statistic(request):
+    user = request.session.get('user')
+    workPlans = models.WorkPalns.objects.filter(teacher__user__id = user['id'])
+    resl = []
+    
+    for item in workPlans:
+        selectLogs = models.SelectLogs.objects.filter(workPaln = item.id)
+        studentCount = len(selectLogs)
+        selectMajors = []
+        for node in selectLogs:
+            selectMajors.append(node.student.major.name)
+        temp = {
+            'projectName': item.project.name,
+            'gradeName': item.grade.name,
+            'studentCount': studentCount,
+            'selectMajors': selectMajors,
+        }
+        resl.append(temp)
+
+    return successData(resl)
 
 def selec_data_student_selected(request):
 
