@@ -624,7 +624,7 @@ def teachers_data_page(request):
             'record': item.record,
             'phone': item.phone,
             'address': item.address,
-            'projectCount': models.WorkPalns.objects.filter(teacher__user__id = item.user.id).values('project_id').annotate(projectCount = Count('teacher_id')).count()
+            'projectCount': models.WorkPalns.objects.filter(teacher__user__id = item.user.id).count()
         }
         resl.append(temp)
 
