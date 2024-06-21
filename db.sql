@@ -103,7 +103,7 @@ CREATE TABLE `projects` (
   `id` varchar(13) NOT NULL,
   `name` varchar(20) NOT NULL,
   `create_time` varchar(19) NOT NULL,
-  `credit` double DEFAULT NULL,
+  `credit` double NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

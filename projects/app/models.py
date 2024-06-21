@@ -42,7 +42,7 @@ class Projects(models.Model):
     id = models.CharField('课程编号', max_length=13, primary_key=True)
     name = models.CharField('课程名称', max_length=20, null=False)
     createTime = models.CharField('记录时间', db_column='create_time', max_length=19, null=False)
-    credit = models.FloatField('课程学分', null=True)
+    credit = models.FloatField('课程学分', null=False)
     class Meta:
         db_table = 'projects'
 

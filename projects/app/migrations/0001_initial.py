@@ -51,6 +51,7 @@ class Migration(migrations.Migration):
                 ('id', models.CharField(max_length=13, primary_key=True, serialize=False, verbose_name='课程编号')),
                 ('name', models.CharField(max_length=20, verbose_name='课程名称')),
                 ('createTime', models.CharField(db_column='create_time', max_length=19, verbose_name='记录时间')),
+                ('credit', models.FloatField(verbose_name='课程学分')),
             ],
             options={
                 'db_table': 'projects',
