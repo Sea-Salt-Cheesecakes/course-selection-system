@@ -87,9 +87,6 @@ class WorkPalns(models.Model):
     teacher = models.ForeignKey(Teachers, on_delete=models.CASCADE, db_column="teacher_id", max_length=13, null=False)
     grade = models.ForeignKey(Grades, on_delete=models.CASCADE, db_column="grade_id", max_length=13, null=False)
     project = models.ForeignKey(Projects, on_delete=models.CASCADE, db_column="project_id", max_length=13, null=False)
-    evaBook = models.IntegerField('教材评价', null=True, validators=[MinValueValidator(1), MaxValueValidator(10)])
-    evaTeacher = models.IntegerField('教学评价', null=True, validators=[MinValueValidator(1), MaxValueValidator(10)])
-    evaEffect = models.IntegerField('效果评价', null=True, validators=[MinValueValidator(1), MaxValueValidator(10)])
     class Meta:
         db_table = 'work_palns'
 
@@ -99,3 +96,13 @@ class SelectLogs(models.Model):
     workPaln = models.ForeignKey(WorkPalns, on_delete=models.CASCADE, db_column="plan_id", max_length=13, null=False)
     class Meta:
         db_table = 'select_logs'
+
+class Evaluations(models.Model):
+    id = models.CharField('记录编号', max_length=13, primary_key=True)
+    workPaln = models.ForeignKey(WorkPalns, on_delete=models.CASCADE, db_column="plan_id", max_length=13, null=False)
+    student = models.ForeignKey(Students, on_delete=models.CASCADE, db_column="student_id", max_length=13, null=True)
+    evaBook = models.IntegerField('教材评价', null=True, validators=[MinValueValidator(1), MaxValueValidator(10)])
+    evaTeacher = models.IntegerField('教学评价', null=True, validators=[MinValueValidator(1), MaxValueValidator(10)])
+    evaEffect = models.IntegerField('效果评价', null=True, validators=[MinValueValidator(1), MaxValueValidator(10)])
+    class Meta:
+        db_table = 'evaluations'
