@@ -8,7 +8,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.shortcuts import render
-from django.db.models import Count
+from django.db.models import Count, Avg
 
 from app import models
 
@@ -940,3 +940,100 @@ def select_data_add(request):
                                      workPaln=models.WorkPalns.objects.get(id=request.POST.get('planId')),
                                     )
     return success()
+
+
+def eva_view(request):
+    user = request.session.get('user')
+    
+    if user['type'] == 0:
+
+        grades = models.Grades.objects.all().values()
+        projects = models.Projects.objects.all().values()
+
+        return render(request, "Evaluations.html", {'grades': grades, 'projects': projects})
+    
+    elif user['type'] == 2:
+        return render(request, "Studenteva.html", {'numbers': list(range(1,11))})
+    
+def eva_student_page(request):
+    user = request.session.get('user')
+
+    selectLogs = models.SelectLogs.objects.filter(student__user_id = user['id'])
+
+    resl = []
+    for item in selectLogs:
+
+        isSelected = models.Evaluations.objects.filter(student__user__id = user['id'] , workPaln__id = item.workPaln.id).count() > 0
+
+        temp = {
+            'id': item.workPaln.id,
+            'projectName': item.workPaln.project.name,
+            'teacherName': item.workPaln.teacher.user.name,
+            'isSelected': isSelected
+        }
+        resl.append(temp)
+
+    return successData(resl)
+
+def eva_data_add(request):
+
+    user = request.session.get('user')
+
+    models.Evaluations.objects.create(id = int(time.time()),
+                                      evaBook = request.POST.get('book'),
+                                      evaTeacher = request.POST.get('teacher'),
+                                      evaEffect = request.POST.get('effect'),
+                                      student = models.Students.objects.get(user__id=user['id']),
+                                      workPaln = models.WorkPalns.objects.get(id=request.POST.get('planId')),
+                                    )
+    return success()
+
+def eva_data_info(request):
+    pageIndex = request.GET.get('pageIndex', 1)
+    pageSize = request.GET.get('pageSize', 10)
+    teacherName = request.GET.get('teacherName')
+    gradeId = request.GET.get('gradeId')
+    projectId = request.GET.get('projectId')
+
+    qruery = Q();
+
+    if isExit(teacherName):
+        qruery = qruery & Q(workPaln__teacher__user__name__contains=teacherName)
+
+    if isExit(gradeId):
+        qruery = qruery & Q(workPaln__grade__id__contains=gradeId)
+
+    if isExit(projectId):
+        qruery = qruery & Q(workPaln__project__id__contains=projectId)
+
+    data = models.WorkPalns.objects.filter(qruery)
+
+    paginator = Paginator(data, pageSize)
+
+    resl = []
+    for item in list(paginator.page(pageIndex)): 
+        evalution = models.Evaluations.objects.filter(workPaln__id = item.id)
+        evaBook = evalution.aggregate(Avg("evaBook"))['evaBook__avg']
+        evaTeacher = evalution.aggregate(Avg("evaTeacher"))['evaTeacher__avg']
+        evaEffect = evalution.aggregate(Avg("evaEffect"))['evaEffect__avg']
+
+        if evaBook == None :
+            evaBook = '未评价'
+            evaTeacher = '未评价'
+            evaEffect = '未评价'
+
+        temp = {
+            'id': item.id,
+            'projectName': item.project.name,
+            'gradeName': item.grade.name,
+            'teacherName': item.teacher.user.name,
+            'evaBook': evaBook,
+            'evaTeacher': evaTeacher,
+            'evaEffect': evaEffect,
+        }
+        resl.append(temp)
+
+    temp = parasePage(pageIndex, pageSize,
+                      paginator.page(pageIndex).paginator.num_pages, paginator.count, resl)
+
+    return successData(temp)
