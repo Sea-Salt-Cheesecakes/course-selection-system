@@ -3,6 +3,7 @@
 #每个类都继承自models.Model，并定义了一些字段（如id、name等），以及一些元数据信息（如db_table等）
 
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 # 定义一个名为CharField的类，继承自models.Field
 class CharField(models.Field):
@@ -95,3 +96,13 @@ class SelectLogs(models.Model):
     workPaln = models.ForeignKey(WorkPalns, on_delete=models.CASCADE, db_column="plan_id", max_length=13, null=False)
     class Meta:
         db_table = 'select_logs'
+
+class Evaluations(models.Model):
+    id = models.CharField('记录编号', max_length=13, primary_key=True)
+    workPaln = models.ForeignKey(WorkPalns, on_delete=models.CASCADE, db_column="plan_id", max_length=13, null=False)
+    student = models.ForeignKey(Students, on_delete=models.CASCADE, db_column="student_id", max_length=13, null=True)
+    evaBook = models.IntegerField('教材评价', null=True, validators=[MinValueValidator(1), MaxValueValidator(10)])
+    evaTeacher = models.IntegerField('教学评价', null=True, validators=[MinValueValidator(1), MaxValueValidator(10)])
+    evaEffect = models.IntegerField('效果评价', null=True, validators=[MinValueValidator(1), MaxValueValidator(10)])
+    class Meta:
+        db_table = 'evaluations'

@@ -69,4 +69,10 @@ urlpatterns = [
     path('selectLogs/page/teacher', app.views.select_data_teastudent_page),
     path('selectLogs/page/teacher_statistic', app.views.select_data_teastudent_page_statistic),
 
+    path('evaluations/', app.views.eva_view),
+    path('evaluation/student/all', app.views.eva_student_page),
+    path('evaluation/add', app.views.eva_data_add),
+    path('evaluation/info', app.views.eva_data_info),
+    path('evaluation/teacher_info', app.views.eva_teacher_info)
+
 ]

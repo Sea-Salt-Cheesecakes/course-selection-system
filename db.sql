@@ -43,6 +43,38 @@ INSERT INTO `colleges` VALUES ('1638089590690','计算学部','2021-11-28 17:00:
 UNLOCK TABLES;
 
 --
+-- Table structure for table `evaluations`
+--
+
+DROP TABLE IF EXISTS `evaluations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `evaluations` (
+  `id` varchar(13) NOT NULL,
+  `evaBook` int DEFAULT NULL,
+  `evaTeacher` int DEFAULT NULL,
+  `evaEffect` int DEFAULT NULL,
+  `student_id` varchar(13) DEFAULT NULL,
+  `plan_id` varchar(13) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `evaluations_student_id_6c0d1685_fk_students_id` (`student_id`),
+  KEY `evaluations_plan_id_860f52b8_fk_work_palns_id` (`plan_id`),
+  CONSTRAINT `evaluations_plan_id_860f52b8_fk_work_palns_id` FOREIGN KEY (`plan_id`) REFERENCES `work_palns` (`id`),
+  CONSTRAINT `evaluations_student_id_6c0d1685_fk_students_id` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `evaluations`
+--
+
+LOCK TABLES `evaluations` WRITE;
+/*!40000 ALTER TABLE `evaluations` DISABLE KEYS */;
+INSERT INTO `evaluations` VALUES ('1719143666',5,3,4,'1717657669','1717658348');
+/*!40000 ALTER TABLE `evaluations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `grades`
 --
 
@@ -277,4 +309,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-06-18 14:58:24
+-- Dump completed on 2024-06-23 19:58:07
