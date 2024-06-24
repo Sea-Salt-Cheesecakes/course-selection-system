@@ -1008,13 +1008,13 @@ def eva_data_info(request):
     qruery = Q();
 
     if isExit(teacherName):
-        qruery = qruery & Q(workPaln__teacher__user__name__contains=teacherName)
+        qruery = qruery & Q(teacher__user__name__contains=teacherName)
 
     if isExit(gradeId):
-        qruery = qruery & Q(workPaln__grade__id__contains=gradeId)
+        qruery = qruery & Q(grade__id=gradeId)
 
     if isExit(projectId):
-        qruery = qruery & Q(workPaln__project__id__contains=projectId)
+        qruery = qruery & Q(project__id=projectId)
 
     data = models.WorkPalns.objects.filter(qruery)
 
