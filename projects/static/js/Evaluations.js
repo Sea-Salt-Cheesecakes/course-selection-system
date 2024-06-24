@@ -51,8 +51,8 @@ $(function (){
     $(".fater-btn-form-qry").on("click", ()=>{
 
         tableView.where["teacherName"] = $("[name=para1]").val();
-        tableView.where["gradeId"] = $("[name=para2]").val();
-        tableView.where["projectId"] = $("[name=para3]").val();
+        tableView.where["gradeId"] = $("[name=para3]").val();
+        tableView.where["projectId"] = $("[name=para4]").val();
 
         $.table(tableView);
     });
