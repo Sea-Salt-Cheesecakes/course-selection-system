@@ -73,5 +73,6 @@ urlpatterns = [
     path('evaluation/student/all', app.views.eva_student_page),
     path('evaluation/add', app.views.eva_data_add),
     path('evaluation/info', app.views.eva_data_info),
+    path('evaluation/teacher_info', app.views.eva_teacher_info)
 
 ]
