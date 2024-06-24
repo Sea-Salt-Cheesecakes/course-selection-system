@@ -1057,8 +1057,7 @@ def eva_teacher_info(request):
     gradeId = request.GET.get('gradeId')
     projectId = request.GET.get('projectId')
 
-    qruery = Q()
-    qruery = qruery & Q(teacher_id=user['id'])
+    qruery = Q(teacher_id=user['id'])
 
     if isExit(gradeId):
         qruery = qruery & Q(grade_id=gradeId)
