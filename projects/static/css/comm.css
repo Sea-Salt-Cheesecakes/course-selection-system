@@ -45,8 +45,8 @@ body{
 	top: 0;
 	bottom: 0;
 	width: 200px;
-	background-color: #409EFF;
-    background-image: linear-gradient(to bottom right, #409EFF , #1fc8db);
+	background-color: #6bdcc7;
+    background-image: linear-gradient(to bottom right, #6bdcc7 , #ACB6E5);
 }
 .fater-layout-body{
 	position: absolute;
@@ -84,7 +84,7 @@ body{
 	font-weight: bold;
 	color: #FFFFFF;
 	text-align: center;
-	border-bottom: 1px solid rgb(102, 177, 255);
+	/*border-bottom: 1px solid rgb(102, 177, 255);*/
 }
 .fater-user{
 	position: absolute;
@@ -139,7 +139,7 @@ body{
 	height: 45px;
 	line-height: 45px;
 	background-color: #FFFFFF;
-	border-left: 5px solid #409EFF;
+	border-left: 5px solid #6bdcc7;
 	padding-left: 15px;
 	margin-bottom: 15px;
 }
@@ -198,9 +198,10 @@ body{
 .fater-btn-sm {
 	padding: 5px 5px;
 	font-size: 8px;
+	background-color: #409EFF;
 }
 .fater-btn-primary{
-	background-color: #409EFF;
+	background-color: #6bdcc7;
 	color: #FFFFFF;
 }
 .fater-btn-normal{
@@ -220,7 +221,7 @@ body{
 }
 .fater-btn-primary-text{
 	background-color: transparent;
-	color: #409EFF;
+	color: #6bdcc7;
 }
 .fater-btn-normal-text{
 	background-color: transparent;
@@ -240,7 +241,7 @@ body{
 
 /* 文本样式 */
 .fater-text-primary{
-	color: #409EFF;
+	color: #6bdcc7;
 }
 .fater-text-normal{
 	color: #303133;
@@ -264,7 +265,7 @@ body{
 	display: inline-block;
 	width:30px;
 	height: 30px;
-	color: #409EFF;
+	color: #6bdcc7;
 	line-height: 30px;
 	text-align: center;
 	border-bottom: 1px solid #E4E7ED;
@@ -359,5 +360,5 @@ body{
 .fater-btn-form-qry{
 	height: 36px;
 	float: left;
-	background-color: #409EFF;
+	background-color: #6bdcc7;
 }
