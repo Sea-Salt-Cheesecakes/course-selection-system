@@ -17,6 +17,7 @@
 
 ## 备注
 
+- 第一次迭代系统在`sprint1`分支中，第二轮迭代系统在`main`分支中
 - 涉及改动数据库结构即`models.py`中字段时请修改后运行
   ```shell
   python manage.py makemigrations
