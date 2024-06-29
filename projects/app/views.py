@@ -878,7 +878,9 @@ def select_data_teastudent_page_statistic(request):
         studentCount = len(selectLogs)
         selectMajors = []
         for node in selectLogs:
-            selectMajors.append(node.student.major.name)
+            major = selectLogs.filter(student__major__name = node.student.major.name).count()
+            selectMajors.append(node.student.major.name+'('+str(major)+'人)')
+        selectMajors = list(set(selectMajors))
         temp = {
             'projectName': item.project.name,
             'gradeName': item.grade.name,
