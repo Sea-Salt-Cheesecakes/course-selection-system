@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-
+import django.core.validators
 
 class Migration(migrations.Migration):
 
@@ -117,6 +117,20 @@ class Migration(migrations.Migration):
             ],
             options={
                 'db_table': 'select_logs',
+            },
+        ),
+        migrations.CreateModel(
+            name='Evaluations',
+            fields=[
+                ('id', models.CharField(max_length=13, primary_key=True, serialize=False, verbose_name='记录编号')),
+                ('evaBook', models.IntegerField(null=True, validators=[django.core.validators.MinValueValidator(1), django.core.validators.MaxValueValidator(10)], verbose_name='教材评价')),
+                ('evaTeacher', models.IntegerField(null=True, validators=[django.core.validators.MinValueValidator(1), django.core.validators.MaxValueValidator(10)], verbose_name='教学评价')),
+                ('evaEffect', models.IntegerField(null=True, validators=[django.core.validators.MinValueValidator(1), django.core.validators.MaxValueValidator(10)], verbose_name='效果评价')),
+                ('student', models.ForeignKey(db_column='student_id', max_length=13, null=True, on_delete=django.db.models.deletion.CASCADE, to='app.students')),
+                ('workPaln', models.ForeignKey(db_column='plan_id', max_length=13, on_delete=django.db.models.deletion.CASCADE, to='app.workpalns')),
+            ],
+            options={
+                'db_table': 'evaluations',
             },
         ),
     ]
